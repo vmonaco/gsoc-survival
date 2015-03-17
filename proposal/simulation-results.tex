@@ -1,0 +1,437 @@
+%% LyX 2.1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=0.1\paperwidth,bmargin=0.1\paperheight,lmargin=0.1\paperwidth,rmargin=0.1\paperwidth}
+\usepackage{array}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{setspace}
+\onehalfspacing
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\@ifundefined{showcaptionsetup}{}{%
+ \PassOptionsToPackage{caption=false}{subfig}}
+\usepackage{subfig}
+\makeatother
+
+\usepackage{babel}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listing}
+
+\begin{document}
+
+\section{Simulation results}
+
+Simulations were performed with R version 3.1.3 running in an Ubuntu
+12.04 desktop with AMD Phenom 9550 Quad-Core 2.20 GHz Processor. All
+of the simulation results are obtained using penalized partial likelihood
+estimation, namely the coxph function in the survival package with
+the Breslow method. Each simulation was repeated 500 times to obtain
+the empirical mean and SD. The empirical censorship and runtime (in
+seconds) are also reported. For more information, see Section \ref{sub:Simulation}.
+
+\begin{table}[h]
+\protect\caption{Ignoring the clustered data: A constant frailty is assumed when the
+actual frailty is either gamma or log-normal. The coefficients are
+consistently biased, as this model ignores the clustered data and
+underestimates the effect of the coefficient. The bias is less severe
+with greater censorship, likely the result of decreased clustering.
+There is more diversity at 80\% censorship due to fewer individual
+from the same family being selected, though this conjecture has not
+been verified.\label{tab:Assume-constant-frailty}}
+
+
+\hfill{}\subfloat[Gamma frailty]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|}
+\multicolumn{4}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.342 & 0.379 & 0.017\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.056 & 0.024 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.565 & 0.883 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.128 & 0.013 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.541 & 0.390 & 0.017\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.061 & 0.025 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.846 & 0.868 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.127 & 0.014 & 0.001\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}\subfloat[Log-normal frailty]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|}
+\multicolumn{4}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.393 & 0.199 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.049 & 0.019 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.507 & 0.796 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.094 & 0.018 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.630 & 0.219 & 0.017\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.056 & 0.019 & 0.001\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{4}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-4} 
+ & $\hat{\beta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.787 & 0.781 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.091 & 0.019 & 0.001\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}
+\end{table}
+
+
+\begin{table}
+\protect\caption{Gamma frailty with a single covariate: The model behaves as anticipated,
+and correctly estimates the coefficient and frailty distribution variance
+within error. One confound is the the SD for ${\bf Z}\sim\mathcal{U}(0,1)$
+is closer to that found in \cite{gorfine2006prospective}, yet their
+simulation used covariates from a standard normal.}
+
+
+\hfill{}\subfloat[Standard normal covariate, ]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.686 & 1.977 & 0.379 & 0.199\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.086 & 0.276 & 0.024 & 0.018\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.691 & 1.802 & 0.883 & 0.061\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.169 & 1.011 & 0.013 & 0.009\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.090 & 1.978 & 0.390 & 0.191\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.102 & 0.277 & 0.025 & 0.017\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.090 & 1.879 & 0.868 & 0.066\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.187 & 0.921 & 0.014 & 0.009\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}\subfloat[Uniform covariate]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.699 & 1.961 & 0.320 & 0.229\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.246 & 0.274 & 0.024 & 0.020\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.746 & 1.837 & 0.863 & 0.063\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.443 & 0.866 & 0.015 & 0.009\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.101 & 1.959 & 0.294 & 0.244\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.248 & 0.265 & 0.024 & 0.020\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.146 & 1.843 & 0.841 & 0.069\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.430 & 0.729 & 0.016 & 0.010\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}
+\end{table}
+
+
+\begin{table}
+\protect\caption{Gamma frailty with two covariates: Again, the coefficients and frailty
+variance are correctly estimated within error.}
+
+
+\hfill{}\subfloat[Standard normal covariate]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|c|}
+\multicolumn{6}{c|}{$\beta_{0}=\log2$, $\beta_{1}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-6} 
+ & $\hat{\beta}_{0}$ & $\hat{\beta}_{1}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.692 & 1.099 & 1.959 & 0.395 & 0.264\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.086 & 0.100 & 0.281 & 0.024 & 0.021\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{6}{c}{$\beta^{0}=\log2$, $\beta_{1}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-6} 
+ & $\hat{\beta}_{0}$ & $\hat{\beta}_{1}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.687 & 1.100 & 1.857 & 0.860 & 0.082\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.161 & 0.176 & 0.873 & 0.015 & 0.013\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}
+\end{table}
+
+
+\begin{table}
+\protect\caption{Log-normal frailty with a single covariate: With $\theta=2$, the
+log-normal has a heavier tail than the gamma, and thus more clustering.
+As a result, with high censorship, the coefficients and frailty variance
+tend to by slightly underestimated. Similar to the gamma frailty,
+the error for uniformly-distributed individual covariates is higher
+than standard normal individual covariates.}
+
+
+\hfill{}\subfloat[Standard normal covariate]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.671 & 1.808 & 0.199 & 0.196\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.071 & 0.296 & 0.019 & 0.014\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.600 & 1.130 & 0.796 & 0.054\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.105 & 0.265 & 0.018 & 0.006\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.061 & 1.802 & 0.219 & 0.184\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.085 & 0.292 & 0.019 & 0.012\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.953 & 1.162 & 0.781 & 0.058\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.106 & 0.269 & 0.019 & 0.006\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}\subfloat[Uniform covariate]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.683 & 1.889 & 0.141 & 0.223\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.224 & 0.296 & 0.017 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.630 & 1.164 & 0.763 & 0.062\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.347 & 0.253 & 0.020 & 0.007\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.084 & 1.922 & 0.120 & 0.234\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.227 & 0.304 & 0.015 & 0.018\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.989 & 1.199 & 0.733 & 0.068\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.331 & 0.252 & 0.021 & 0.008\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}
+\end{table}
+
+
+\begin{table}
+\protect\caption{Assuming the wrong frailty: When the true frailty is log-normal and
+we assume a gamma distribution, the coefficients are underestimated.
+This effect is pronounced for higher censorship. This is a result
+of underestimating how much the data are clustered, since the log-normal
+has a heavier tail and produces more clustered data. Underestimation
+is not as severe when the true frailty is gamma and a log-normal is
+assumed. In this case, we assume the data is more clustered that it
+actually is.\label{tab:Assume-the-wrong}}
+
+
+\hfill{}\subfloat[Gamma frailty, assume log-normal]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.615 & 2.050 & 0.379 & 0.139\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.077 & 0.291 & 0.024 & 0.012\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.620 & 0.866 & 0.883 & 0.041\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.140 & 0.304 & 0.013 & 0.003\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.979 & 2.111 & 0.390 & 0.136\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.091 & 0.304 & 0.025 & 0.011\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.962 & 0.962 & 0.868 & 0.044\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.143 & 0.287 & 0.014 & 0.004\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}\subfloat[Log-normal frailty, assume gamma]{
+
+\protect\centering{}%
+\begin{tabular}{l|c|c|c|c|}
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.665 & 1.188 & 0.199 & 0.213\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.073 & 0.249 & 0.019 & 0.021\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log2$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 0.671 & 1.891 & 0.796 & 0.079\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.121 & 0.653 & 0.018 & 0.012\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(130,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.044 & 1.149 & 0.219 & 0.197\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.085 & 0.168 & 0.019 & 0.016\tabularnewline
+\hline 
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{}\tabularnewline
+\multicolumn{5}{c}{$\beta^{0}=\log3$, $N(60,15^{2})$ censoring}\tabularnewline
+\cline{2-5} 
+ & $\hat{\beta}$ & $\hat{\theta}$ & Censoring & Runtime\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. mean} & 1.053 & 1.693 & 0.781 & 0.081\tabularnewline
+\hline 
+\multicolumn{1}{|l|}{Emp. SD} & 0.129 & 0.562 & 0.019 & 0.011\tabularnewline
+\hline 
+\end{tabular}\protect}\hfill{}
+\end{table}
+
+\end{document}

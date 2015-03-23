@@ -74,6 +74,7 @@
 \begin_body
 
 \begin_layout Title
+\paragraph_spacing single
 
 \size larger
 R Implementation of a General Semi-parametric Shared Frailty Model
@@ -83,8 +84,19 @@ R Implementation of a General Semi-parametric Shared Frailty Model
 \end_inset
 
 
-\size normal
+\size large
 R frailty Package
+\size normal
+
+\begin_inset Newline newline
+\end_inset
+
+GSoC 2015 Proposal
+\begin_inset Newline newline
+\end_inset
+
+John V.
+ Monaco
 \begin_inset Newline newline
 \end_inset
 
@@ -130,8 +142,8 @@ About me
 \end_layout
 
 \begin_layout Standard
-I am Computer Science PhD student at Pace University, working on a dissertation
- in behavioral biometrics.
+I am a Computer Science PhD student at Pace University, working on a dissertatio
+n in behavioral biometrics.
  My research focuses on the use of timestamped events for human identification,
  verification, and prediction.
  I'm funded by the Department of Defense and attend school under the Information
@@ -544,7 +556,8 @@ Survival analysis is the study of time intervals.
  during which an event did not occur.
  This situation is common in clinical data, when a subject becomes unavailable
  for observation.
- Since the time of the event is not known, the interval is said to be 
+ Since the time of the event is not known, the observation is said to be
+ 
 \emph on
 right censored
 \emph default
@@ -565,8 +578,8 @@ In multivariate survival analysis, we may have to decide whether one or
  The covariates can be continuous or discrete.
  For example, in clinical data, it is common to consider age, gender, and
  smoking habits as potential indicators for disease risk or life expectancy.
- The decision whether to include any of these covariates must be statistically
- significant.
+ The decision whether to include any of these covariates in a model is usually
+ based on the results of statistical tests.
 \end_layout
 
 \begin_layout Standard
@@ -587,7 +600,7 @@ hazard function
  of the observed covariates.
  When dealing with clinical data, there are many scenarios where the survival
  times are clustered.
- This can be due geographical clustering, subjects sharing a common gene,
+ This can be due to geographical clustering, subjects sharing a common gene,
  or some other predisposition that cannot be observed directly.
  To account for this clustering, the 
 \emph on
@@ -607,7 +620,7 @@ key "therneau2000modeling"
 frailty
 \emph default
 , which comprises the unobservable dependency between members of a cluster.
- Given the observed covariates and unobservable frailty, the survival times
+ Given the observed covariates and the unobservable frailty, survival times
  within a cluster are independent.
 \end_layout
 
@@ -658,7 +671,7 @@ The hazard function in a shared frailty model is given by
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\lambda_{ij}(t|\omega_{i})=\lambda_{0}(t)\omega_{i}\exp({\bf \beta'}{\bf Z_{ij}})\label{eq:share-frailty-model}
+\lambda_{ij}(t|{\bf Z_{ij},}\omega_{i})=\lambda_{0}(t)\omega_{i}\exp({\bf \beta'}{\bf Z_{ij}})\label{eq:share-frailty-model}
 \end{equation}
 
 \end_inset
@@ -700,7 +713,7 @@ where
 \begin_inset Formula $\omega$
 \end_inset
 
- come from some distribution 
+ comes from some distribution 
 \begin_inset Formula $f(\omega;{\bf \theta})$
 \end_inset
 
@@ -711,7 +724,7 @@ where
  is a parameter vector.
  While only several frailty distributions have theoretical support and R
  implementations for the penalized likelihood approach, the estimation procedure
- defined in 
+ provided in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gorfine2006prospective"
@@ -1086,7 +1099,7 @@ The parfm package does support a number of frailty distributions that others
  don't, but at a cost.
  This package assumes that the baseline hazard function in Equation 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand eqref
 reference "eq:share-frailty-model"
 
 \end_inset
@@ -1099,7 +1112,8 @@ key "gorfine2006prospective"
 
 \end_inset
 
-, does not make this assumption.
+, does not make this assumption; The baseline hazard function is unspecified
+ and estimated non-parametrically.
 \end_layout
 
 \begin_layout Standard
@@ -1122,7 +1136,7 @@ reference "fig:RStudio-CRAN-mirror-weekly-downloads"
  The survival package is by far the most popular since it contains standard
  survival analysis functions that assume data independence.
  This package shows download activity with increasingly larger spikes at
- the beginning of the year since 2012.
+ the beginning of the year since 2013.
  Other packages also continue to grow in popularity, perhaps an indication
  that niche functionality, such as a shared frailty model, is becoming more
  desired.
@@ -1208,7 +1222,7 @@ where
 \begin_inset Formula $\omega$
 \end_inset
 
- is the frailty value shared for each family, 
+ is the frailty value shared for each cluster, 
 \begin_inset Formula ${\bf Z}$
 \end_inset
 
@@ -1217,7 +1231,7 @@ where
 \end_inset
 
  is the vector of covariate coefficients.
- First, for each family, a frailty value is sampled from either a gamma
+ First, for each cluster, a frailty value is sampled from either a gamma
  or log-normal distribution.
  Random covariates for each individual are generated from a standard normal
  or uniform distribution.
@@ -1225,7 +1239,7 @@ where
 \begin_inset Formula $j$
 \end_inset
 
- in family 
+ in cluster 
 \begin_inset Formula $i$
 \end_inset
 
@@ -1301,11 +1315,12 @@ The goal of this simulation is primarily to demonstrate the outcome of parameter
 \begin_inset Formula $\theta$
 \end_inset
 
- determines the strength of dependence between family members.
- Currently, practitioners are forced to choose from one of only two frailty
- distributions.
- Using the wrong frailty distribution introduces a serious bias in the estimatio
-n of the frailty distribution variance, as seen in Table 
+ determines the strength of dependence between cluster members.
+ Currently, with unspecified baseline hazard function, practitioners are
+ forced to choose from one of only two frailty distributions.
+ Assuming the wrong frailty distribution often introduces a serious bias
+ in the estimation of the frailty distribution variance, as seen in Table
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Assume-the-wrong"
@@ -1361,8 +1376,9 @@ reference "fig:Gamma-vs.-log-normal"
 \begin_inset Formula $\theta$
 \end_inset
 
- increases, the data become more clustered both distributions, and this
- effect is amplified with a log-normal frailty distribution.
+ increases, the data become more clustered under each of these two frailty
+ distributions, and this effect is amplified with a log-normal frailty distribut
+ion.
  For detailed analysis of the simulation, see Appendix 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1436,9 +1452,9 @@ Functionality
 
 \begin_layout Standard
 Most importantly, the package will provide a function capable of parameter
- estimation under the shared frailty model define in 
+ estimation under the shared frailty model define in Equation 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand eqref
 reference "eq:share-frailty-model"
 
 \end_inset
@@ -1514,7 +1530,7 @@ reference "sec:Simulation-source-code"
  Output will be similar to existing survival analysis models to minimize
  the learning curve for practitioners who wish to take advantage of this
  package.
- A summary of the proposed package capabilities is given in 
+ A summary of the proposed package capabilities is given in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Package-functionality"
@@ -1705,7 +1721,7 @@ key "gorfine2006prospective"
 
 \end_inset
 
- was shown to be similar EM.
+ was shown to be similar to EM.
  To ensure the runtime is proportional to the existing implementations (both
  the penalized likelihood in the survival, coxme, and frailtypack packages
  and EM in the phmm package), critical sections of code will be compiled
@@ -1714,7 +1730,7 @@ key "gorfine2006prospective"
 
 \begin_layout Standard
 Guided by the official GSoC timeline, the proposed dates for milestone achieveme
-nts are shown in 
+nts are shown in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Events-timeline"
@@ -1987,8 +2003,8 @@ There is no doubt a void in terms of survival analysis tools when it comes
  to using a general shared frailty distribution.
  To avoid the duplication of effort when a dataset warrants other frailty
  distributions besides what is currently available, an R package is proposed.
- The package will implement a proved-consistent and normal estimator capable
- of handling general frailty distributions.
+ The package will implement a proved-consistent and normally-distributed
+ estimator capable of handling general frailty distributions.
  The package will be accompanied by extensive documentation, allowing practition
 ers to immediately take advantage of this estimator, which currently has
  no open source implementation.
@@ -8381,13 +8397,19 @@ status open
 
 \begin_layout Plain Layout
 Assuming the wrong frailty: When the true frailty is log-normal and we assume
- a gamma distribution, the coefficients are underestimated.
- This effect is pronounced with higher censorship.
+ a gamma distribution (b), the regression coefficient is slightly biased
+ and the estimator of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is clearly biased, especially with low censoring rate.
  This is a result of underestimating how much the data are clustered, since
  the log-normal has a heavier tail and produces more clustered data.
  Underestimation is not as severe when the true frailty is gamma and a log-norma
-l is assumed.
- In this case, we assume the data is more clustered that it actually is.
+l is assumed (a).
+ In this case, we assume the data is more clustered than it actually is.
+ The underestimation of the regression coefficients in (a) is more severe
+ than (b).
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Assume-the-wrong"

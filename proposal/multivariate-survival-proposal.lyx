@@ -84,20 +84,37 @@ R Implementation of a General Semi-parametric Shared Frailty Model
 
 
 \size normal
-Google Summer of Code 2015 Proposal
+R frailty Package
+\begin_inset Newline newline
+\end_inset
+
+Project description: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/rstats-gsoc/gsoc2015/wiki/Multivariate-Survival-analysis
 \end_layout
 
-\begin_layout Author
-John V.
- Monaco
+\end_inset
+
+
 \begin_inset Newline newline
 \end_inset
 
-PhD Student, Pace University
-\begin_inset Newline newline
+Proposal source code: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/vmonaco/gsoc-survival
+\end_layout
+
 \end_inset
 
-jmonaco@pace.edu, vmonaco.com
+
 \end_layout
 
 \begin_layout Abstract
@@ -108,30 +125,417 @@ Convenient and reliable means of survival analysis is critical to practitioners.
  estimating the parameters of a shared frailty model.
 \end_layout
 
-\begin_layout Abstract
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
+\begin_layout Section
+About me
+\end_layout
+
+\begin_layout Standard
+I am Computer Science PhD student at Pace University, working on a dissertation
+ in behavioral biometrics.
+ My research focuses on the use of timestamped events for human identification,
+ verification, and prediction.
+ I'm funded by the Department of Defense and attend school under the Information
+ Assurance Scholarship Program (IASP).
+\end_layout
+
+\begin_layout Standard
+I participated in GSoC 2013 as a graduate student (I did not apply to GSoC
+ in 2014), during which I proposed and developed a Moodle plugin for instructors
+ to verify the identity of students taking online exams by their keystroke
+ signatures (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://docs.moodle.org/dev/BioAuth_Plugin
+\end_layout
+
+\end_inset
+
+).
+ This project involved capturing keystroke event times on the client side
+ and an algorithm to extract features and classify samples on the server
+ side.
+ The project was completed successfully on time, and several of my publications
+ have been based on that work.
+ More recently, I participated in an international eye-movement biometric
+ competition and came in first place (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.kasprowski.pl/emvic/results.php
+\end_layout
+
+\end_inset
+
+).
+ This work involved optimizing the multivariate Wald-Wolfowitz test and
+ writing a distance-based classifier to identify a subject ID from unlabeled
+ samples.
+\end_layout
+
+\begin_layout Standard
+The results of my previous GSoC participation and the competition demonstrate
+ my ability to design a model and then translate it into code, following
+ software engineering principles than ensure a robust system and clean code.
+ The proposed project will require a broad range of skills to complete successfu
+lly, as detailed in this proposal.
+ Besides the development of the R package described here, my goal in working
+ on this project is to develop a deeper understanding of multivariate survival
+ analysis.
+ I believe that the analysis of clustered survival times, or alternatively,
+ repeating events from one individual, is intimately related to time-interval
+ behavioral biometrics.
+\end_layout
+
+\begin_layout Subsection
+Contact information
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+John V.
+ Monaco
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Melange username
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+vmonaco
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Address
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+861 Bedford Rd, Pleasantville, NY, 10570
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Phone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++1 914 801 7988
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Email
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+jmonaco@pace.edu, vinmonaco@gmail.com
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Website
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+vmonaco.com
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Abstract
-\begin_inset Newpage newpage
+\begin_layout Subsection
+Affiliation
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Institution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Pace University
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Program
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+PhD Computer Science
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Stage of completion
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2nd year
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Contact to verify
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dr.
+ Charles Tappert (advisor), ctappert@pace.edu
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Schedule conflicts
+\end_layout
+
+\begin_layout Standard
+I have no schedule conflicts that will prevent me from committing 40 hours/week
+ to this project during coding periods.
 \end_layout
 
 \begin_layout Section
-Introduction
+Mentors
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Email
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dr.
+ Malka Gorfine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+gorfinem@post.tau.ac.il
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dr.
+ Li Hsu
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+lih@fredhutch.org
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I have reached out to Dr.
+ Gorfine and Dr.
+ Hsu on 3/12 (via email) and received feedback for the first draft of this
+ proposal on 3/18.
+ This draft includes revisions suggested by Dr.
+ Gorfine.
+\end_layout
+
+\begin_layout Section
+Background
 \end_layout
 
 \begin_layout Standard
 Survival analysis is the study of time intervals.
- We may be interested in predicting the time until an event occurs, such
- as biological or mechanical failure, given some historical data.
+ We are often faced with the task of predicting the time until an event
+ occurs, such as biological or mechanical failure, given some historical
+ data.
  Or we may have to decide whether a covariate has any effect on the expected
  survival time of an individual.
  Several properties of survival data make survival analysis unique compared
@@ -156,34 +560,13 @@ key "clark2003survival"
 \end_layout
 
 \begin_layout Standard
-In multivariate survival analysis, we may be faced with the task of deciding
- whether one or more covariates have an effect on the expected survival
- time.
+In multivariate survival analysis, we may have to decide whether one or
+ more covariates have an effect on the expected survival time.
  The covariates can be continuous or discrete.
  For example, in clinical data, it is common to consider age, gender, and
  smoking habits as potential indicators for disease risk or life expectancy.
  The decision whether to include any of these covariates must be statistically
  significant.
-\end_layout
-
-\begin_layout Standard
-In dealing with clinical data, there are many scenarios where the survival
- times are clustered.
- This can be due to observations at various testing facilities (clustered
- by location), subjects that share a common gene, or some other predisposition
- that cannot be observed directly.
- Within each 
-\emph on
-family
-\emph default
-, the survival times are independent, but as a whole, there exists a dependency
- between survival times and the 
-\emph on
-frailty
-\emph default
- of each family.
- That is, an unobserved frailty value for a family may determine the survival
- times of those family members.
 \end_layout
 
 \begin_layout Standard
@@ -202,13 +585,15 @@ hazard function
 \emph default
 , which is the risk of an event occurring at any given time as a function
  of the observed covariates.
- Unable to accurately model clustered data, a new model was proposed.
- The 
+ When dealing with clinical data, there are many scenarios where the survival
+ times are clustered.
+ This can be due geographical clustering, subjects sharing a common gene,
+ or some other predisposition that cannot be observed directly.
+ To account for this clustering, the 
 \emph on
 shared frailty model
 \emph default
- is an extension to the well-known Cox PH model, and introduces a multiplicative
- term in the hazard function for each family 
+ was introduced 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "therneau2000modeling"
@@ -216,7 +601,18 @@ key "therneau2000modeling"
 \end_inset
 
 .
- The proposed project is the implementation of a shared frailty model.
+ This model makes the assumption that there exists a random variable, the
+ 
+\emph on
+frailty
+\emph default
+, which comprises the unobservable dependency between members of a cluster.
+ Given the observed covariates and unobservable frailty, the survival times
+ within a cluster are independent.
+\end_layout
+
+\begin_layout Standard
+The proposed project is an R implementation of a shared frailty model.
  This proposal presents the motivation and strategy to develop an R package
  capable of parameter estimation, data generation, and visualization, and
  is largely an implementation of the algorithm proposed in 
@@ -234,8 +630,8 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-Currently, parameters in a frailty model are generally determined by expectation
--maximization (EM) 
+Currently, shared frailty model parameters are generally determined by a
+ penalized partial likelihood method 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ripatti2000estimation"
@@ -251,7 +647,7 @@ key "gorfine2006prospective"
 \end_inset
 
 , an alternative algorithm is proposed that avoids several limitations of
- using EM, described in this section.
+ this approach, as well as expectation maximization (EM).
  
 \end_layout
 
@@ -283,7 +679,7 @@ where
 \begin_inset Formula $\lambda_{0}(t)$
 \end_inset
 
- is the baseline hazard function, 
+ is the unspecified baseline hazard function, 
 \begin_inset Formula ${\bf \beta}$
 \end_inset
 
@@ -313,20 +709,22 @@ where
 \end_inset
 
  is a parameter vector.
- While only several frailty distributions have known solutions using EM,
- the estimation procedure defined in 
+ While only several frailty distributions have theoretical support and R
+ implementations for the penalized likelihood approach, the estimation procedure
+ defined in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gorfine2006prospective"
 
 \end_inset
 
- is capable of handling general frailty distributions with finite moments.
+ is capable of handling any frailty distribution with finite moments.
  The implementation of a general shared frailty model will allow practitioners
- to choose the appropriate frailty distribution based on their data.
+ to choose the appropriate frailty distribution based on their data as opposed
+ to using one of only several frailty distributions currently implemented.
  Additionally, results obtained with the proposed package can be interpreted
- with confidence as this estimator has proved consistency and asymptotic
- normality .
+ with confidence, as this estimator has proved consistency and asymptotic
+ normality.
 \end_layout
 
 \begin_layout Subsection
@@ -439,8 +837,7 @@ Frailty distributions
 \begin_inset Text
 
 \begin_layout Plain Layout
-Avg.
- weekly downloads
+Weekly downloads
 \end_layout
 
 \end_inset
@@ -666,7 +1063,12 @@ gamma, log-normal
 \end_layout
 
 \begin_layout Standard
-While some of these packages are able to generate survival data, such as
+The survival, coxme, and frailtypack packages all use penalized partial
+ likelihood for parameter estimation, and are thus limited to only several
+ frailty distributions.
+ MST generates trees for multivariate survival data, phmm uses EM to estimate
+ parameters, and SurvBayes is no longer in the CRAN repository.
+ While some of these packages are able to generate survival data, such as
  MST, most do not have this capability.
  They either contain synthetic and/or real-world datasets or no data at
  all.
@@ -677,6 +1079,27 @@ While some of these packages are able to generate survival data, such as
 n.
  In favor of self-contained functionality, the necessary data generation
  procedures will be developed as part of the proposed package.
+\end_layout
+
+\begin_layout Standard
+The parfm package does support a number of frailty distributions that others
+ don't, but at a cost.
+ This package assumes that the baseline hazard function in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:share-frailty-model"
+
+\end_inset
+
+ is of known parametric form up to a few unknown parameters.
+ The proposed package, an implementation of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gorfine2006prospective"
+
+\end_inset
+
+, does not make this assumption.
 \end_layout
 
 \begin_layout Standard
@@ -696,10 +1119,13 @@ reference "fig:RStudio-CRAN-mirror-weekly-downloads"
 \end_inset
 
 .
- The survival package is by far the most popular, with increasingly larger
- spikes at the beginning of the year since 2012.
- The lesser-known packages also continue to grow in popularity, perhaps
- an indication that functionality outside the commonly used tools is desired.
+ The survival package is by far the most popular since it contains standard
+ survival analysis functions that assume data independence.
+ This package shows download activity with increasingly larger spikes at
+ the beginning of the year since 2012.
+ Other packages also continue to grow in popularity, perhaps an indication
+ that niche functionality, such as a shared frailty model, is becoming more
+ desired.
  The proposed package is a vital addition to the battery of survival analysis
  tools available.
 \end_layout
@@ -876,10 +1302,10 @@ The goal of this simulation is primarily to demonstrate the outcome of parameter
 \end_inset
 
  determines the strength of dependence between family members.
- Currently, practitioners are forced to choose from one of only several
- frailty distributions.
- Using the wrong frailty distribution can a serious bias into a model, as
- seen in Table 
+ Currently, practitioners are forced to choose from one of only two frailty
+ distributions.
+ Using the wrong frailty distribution introduces a serious bias in the estimatio
+n of the frailty distribution variance, as seen in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Assume-the-wrong"
@@ -906,7 +1332,7 @@ while for the log-normal,
 \begin_inset Formula $\theta$
 \end_inset
 
- is the log variance, where the log-normal given by
+ is the log variance, with the log-normal distribution given by
 \end_layout
 
 \begin_layout Standard
@@ -935,8 +1361,8 @@ reference "fig:Gamma-vs.-log-normal"
 \begin_inset Formula $\theta$
 \end_inset
 
- increases, the data become more clustered with either distribution, and
- this effect is amplified with a log-normal frailty distribution.
+ increases, the data become more clustered both distributions, and this
+ effect is amplified with a log-normal frailty distribution.
  For detailed analysis of the simulation, see Appendix 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1049,8 +1475,8 @@ key "zucker2008pseudo"
 \begin_layout Standard
 Functions to obtain confidence intervals via bootstrapping and resampling
  will be developed.
- This is import for model validation, so that the empirical and theoretical
- parameter variances can be compared.
+ This is important for model validation, so that the empirical and theoretical
+ parameter estimators' variances can be compared.
  It also allows paves the way for Monte Carlo hypothesis testing.
 \end_layout
 
@@ -1085,9 +1511,9 @@ reference "sec:Simulation-source-code"
 
 .
  Lastly, functions for visualization will be included where appropriate.
- The output will be similar to existing survival analysis models to minimize
+ Output will be similar to existing survival analysis models to minimize
  the learning curve for practitioners who wish to take advantage of this
- function.
+ package.
  A summary of the proposed package capabilities is given in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1242,7 +1668,7 @@ Functions for text-based and graphical model visualization
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Timeline
 \end_layout
 
@@ -1251,8 +1677,10 @@ Development will largely follow an incremental approach.
  The package design will reflect this, as the behavior of each function
  in the proposed package will be self-contained.
  This makes testing less complex.
- Much of the set up and tear down in testing involves generating artificial
+ Much of the set-up and tear-down in testing involves generating artificial
  data, which itself is a useful feature to have.
+ Commits will be made daily, with weekly summaries submitted to the mentors
+ for evaluation.
 \end_layout
 
 \begin_layout Standard
@@ -1278,8 +1706,10 @@ key "gorfine2006prospective"
 \end_inset
 
  was shown to be similar EM.
- To ensure the runtime is proportional to the existing EM implementations,
- critical sections of code will be compiled natively if necessary.
+ To ensure the runtime is proportional to the existing implementations (both
+ the penalized likelihood in the survival, coxme, and frailtypack packages
+ and EM in the phmm package), critical sections of code will be compiled
+ natively if necessary.
 \end_layout
 
 \begin_layout Standard
@@ -1293,8 +1723,9 @@ reference "tab:Events-timeline"
 
 .
  This table may change, subject to mentor feedback.
- I currently have no schedule conflicts during the work periods of the GSoC
- timeline.
+ Functions for hypothesis testing and data generation will be sacrificed
+ in that order under unforeseen circumstances that change the time constraints
+ of the project.
 \end_layout
 
 \begin_layout Standard
@@ -1560,7 +1991,7 @@ There is no doubt a void in terms of survival analysis tools when it comes
  of handling general frailty distributions.
  The package will be accompanied by extensive documentation, allowing practition
 ers to immediately take advantage of this estimator, which currently has
- to open source implementation.
+ no open source implementation.
 \end_layout
 
 \begin_layout Standard
@@ -1576,44 +2007,7 @@ options "plain"
 
 \begin_layout Section
 \start_of_appendix
-About me
-\end_layout
-
-\begin_layout Standard
-I am Computer Science PhD student at Pace University, working on a dissertation
- in behavioral biometrics.
- My research focuses on the use of timestamped events for human identification,
- verification, and prediction.
- I'm funded by the Department of Defense and attend school under the Information
- Assurance Scholarship Program (IASP).
-\end_layout
-
-\begin_layout Standard
-I participated in GSoC 2013 as a graduate student, during which I proposed
- and developed a Moodle plugin for instructors to verify the identity of
- students taking online exams by their keystroke signatures.
- This project involved capturing key event times on the client side and
- an algorithm to extract features and classify on the server side.
- The project was completed successfully on time, and several of my publications
- have been base on that work.
- More recently, I participated in an international eye-movement biometric
- competition and came in first place.
- This work involved optimizing the multivariate Wald-Wolfowitz test, which
- I used in a distance-based classifier.
-\end_layout
-
-\begin_layout Standard
-My goal in writing this proposal and working on this project is to develop
- a deeper understanding of multivariate survival analysis.
- I believe that the analysis of clustered survival times, or alternatively,
- repeating events from one individual, is intimately related to time-interval
- behavioral biometrics.
- I hope that others will benefit from this work, which a the survival analysis
- tools currently available.
-\end_layout
-
-\begin_layout Section
-Simulation results
+Test: simulation results
 \end_layout
 
 \begin_layout Standard
@@ -1652,15 +2046,8 @@ Ignoring the clustered data: A constant frailty is assumed when the actual
  data and underestimates the effect of the coefficient.
  The bias is less severe with greater censorship, likely the result of decreased
  clustering.
- There is more diversity at 80% censorship due to fewer individual from
- the same family being selected, though this conjecture has not been verified.
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:Assume-constant-frailty"
-
-\end_inset
-
-
+ There is more diversity at 80% censorship due to fewer observed failure
+ times.
 \end_layout
 
 \end_inset
@@ -3311,20 +3698,24 @@ status open
 
 \begin_layout Plain Layout
 Gamma frailty with a single covariate: The model behaves as anticipated,
- and correctly estimates the coefficient and frailty distribution variance
+ and correctly estimates the coefficient and frailty distribution variance,
  within error.
- One confound is the the SD for 
-\begin_inset Formula ${\bf Z}\sim\mathcal{U}(0,1)$
-\end_inset
-
- is closer to that found in 
+ Note that the simulation in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "gorfine2006prospective"
 
 \end_inset
 
-, yet their simulation used covariates from a standard normal.
+ may have used 
+\begin_inset Formula ${\bf Z}\sim\mathcal{U}(0,1)$
+\end_inset
+
+ and not 
+\begin_inset Formula ${\bf Z}\sim N(0,1)$
+\end_inset
+
+, as confirmed by one author.
 \end_layout
 
 \end_inset
@@ -7991,7 +8382,7 @@ status open
 \begin_layout Plain Layout
 Assuming the wrong frailty: When the true frailty is log-normal and we assume
  a gamma distribution, the coefficients are underestimated.
- This effect is pronounced for higher censorship.
+ This effect is pronounced with higher censorship.
  This is a result of underestimating how much the data are clustered, since
  the log-normal has a heavier tail and produces more clustered data.
  Underestimation is not as severe when the true frailty is gamma and a log-norma

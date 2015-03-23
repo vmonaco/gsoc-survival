@@ -1,0 +1,87 @@
+===== R GSoC Student Application Template =====
+
+Project title: 
+
+Project short title (30 characters): 
+
+URL of project idea page: 
+
+
+
+
+==== Bio of Student ====
+
+Provide a brief (text) biography, and why you think your background qualifies you for this project.
+
+=== CONTACT INFORMATION ===
+
+Student name: 
+
+Melange Link_id:  
+
+Student postal address: 
+
+Telephone(s): 
+
+Email(s): 
+
+Other communications channels: Skype/Google+, etc. : 
+
+
+=== Student affiliation ===
+
+Institution: 
+
+Program: 
+
+Stage of completion: 
+
+Contact to verify: 
+
+
+==== Schedule Conflicts: ====
+
+Please list any schedule conflict that will interfere with you treating your proposed R GCoC project as a full time job in the summer.
+
+==== MENTORS ====
+
+Mentor names: 
+
+Mentor emails: 
+
+Mentor link_ids: 
+
+Have you been in touch with the mentors? When and how? 
+
+
+
+==== CODING PLAN & METHODS ====
+
+Describe in detail your plan for completing the work.  What functions will be written, how and when will you do design, how will you verify the results of your coding?  The sub-section headings below are examples only.  Each project is different, please make your application appropriate to the work you propose.  
+
+Describe perceived obstacles and challenges, and how you plan to overcome them.
+
+
+
+==== TIMELINE ====
+
+(consult GSOC schedule)
+
+Provide a detailed timeline of how you plan to spend your summer.  Don't leave testing and documentation for last, as that's almost a guarantee of a failed project. 
+
+What is your contingency plan for things not going to schedule? 
+
+
+==== MANAGEMENT OF CODING PROJECT ====
+
+How do you propose to ensure code is submitted / tested?
+
+How often do you plan to commit?  What changes in commit behavior would indicate a problem?
+
+
+==== TEST ====
+
+Describe the qualification test that you have submitted to you project mentors.  If feasible, include code, details, output, and example of similar coding problems that you have solved.
+
+
+==== Anything Else ====

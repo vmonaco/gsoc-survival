@@ -6,10 +6,10 @@ library(frailtypack)
 library(cranlogs)
 
 SEED <- 2015 # Used as a default param to the simulation fn below
-N <- 300 # Number of families
-K <- 2   # Family size
+N <- 3000 # Number of families
+K <- 20   # Family size
 theta <- 2 # Strength of family clustering
-reps <- 500 # Number of repetitions for each simulation
+reps <- 10 # Number of repetitions for each simulation
 
 # Root dir for output
 args <- commandArgs(trailingOnly = TRUE)
@@ -150,190 +150,190 @@ plot_gamma_vs_lognormal <- function(theta, filename=NULL) {
 }
 
 ########## Package statistics
-
-# Generate a figure for weekly downloads
-packages <- c("survival","frailtypack","coxme","phmm","survBayes","MST","parfm")
-logdata <- cran_downloads(package=packages, from="2012-10-01", to=as.Date(Sys.time()))
-plot_weekly_package_downloads(packages, logdata, file.path(PROJECTDIR, "figures/packages_by-week.png"))
-
-# Gamma vs log normal for the default theta
-plot_gamma_vs_lognormal(theta, file.path(PROJECTDIR, "figures/gamma_vs_lognormal.png"))
-
-########## Simulations
-# Each simulation is run first without and then with frailty estimation
-
-###### Gamma frailty
-# beta = log 2, ~35% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2.censor_130.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log2.censor_130.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log2.censor_130.frailty_gamma.frailty_log.normal.csv")
-
-# beta = log 2, ~85% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2.censor_60.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log2.censor_60.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log2.censor_60.frailty_gamma.frailty_log.normal.csv")
-
-# beta = log 3, ~30% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log3.censor_130.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log3.censor_130.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log3.censor_130.frailty_gamma.frailty_log.normal.csv")
-
-# beta = log 3, ~80% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log3.censor_60.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log3.censor_60.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log3.censor_60.frailty_gamma.frailty_log.normal.csv")
-
-# beta = log 2, log 3, ~30% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2log3.censor_130.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
-            "beta_log2log3.censor_130.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
-            "beta_log2log3.censor_130.frailty_gamma.frailty_log.normal.csv")
-
-# beta = log 2, log 3, ~80% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2log3.censor_60.frailty_gamma.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
-            "beta_log2log3.censor_60.frailty_gamma.frailty_gamma.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
-            "beta_log2log3.censor_60.frailty_gamma.frailty_log.normal.csv")
-
-###### Log-normal frailty
-# beta = log 2, ~35% censoring, log.normal frailty
+# 
+# # Generate a figure for weekly downloads
+# packages <- c("survival","frailtypack","coxme","phmm","survBayes","MST","parfm")
+# logdata <- cran_downloads(package=packages, from="2012-10-01", to=as.Date(Sys.time()))
+# plot_weekly_package_downloads(packages, logdata, file.path(PROJECTDIR, "figures/packages_by-week.png"))
+# 
+# # Gamma vs log normal for the default theta
+# plot_gamma_vs_lognormal(theta, file.path(PROJECTDIR, "figures/gamma_vs_lognormal.png"))
+# 
+# ########## Simulations
+# # Each simulation is run first without and then with frailty estimation
+# 
+# ###### Gamma frailty
+# # beta = log 2, ~35% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2.censor_130.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log2.censor_130.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "beta_log2.censor_130.frailty_gamma.frailty_log.normal.csv")
+# 
+# # beta = log 2, ~85% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2.censor_60.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log2.censor_60.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "beta_log2.censor_60.frailty_gamma.frailty_log.normal.csv")
+# 
+# # beta = log 3, ~30% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log3.censor_130.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log3.censor_130.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "beta_log3.censor_130.frailty_gamma.frailty_log.normal.csv")
+# 
+# # beta = log 3, ~80% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log3.censor_60.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log3.censor_60.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "beta_log3.censor_60.frailty_gamma.frailty_log.normal.csv")
+# 
+# # beta = log 2, log 3, ~30% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2log3.censor_130.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
+#             "beta_log2log3.censor_130.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
+#             "beta_log2log3.censor_130.frailty_gamma.frailty_log.normal.csv")
+# 
+# # beta = log 2, log 3, ~80% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2log3.censor_60.frailty_gamma.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
+#             "beta_log2log3.censor_60.frailty_gamma.frailty_gamma.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
+#             "beta_log2log3.censor_60.frailty_gamma.frailty_log.normal.csv")
+# 
+# ###### Log-normal frailty
+# # beta = log 2, ~35% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2.censor_130.frailty_log.normal.frailty_none.csv")
 survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2.censor_130.frailty_log.normal.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log2.censor_130.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log2.censor_130.frailty_log.normal.frailty_gamma.csv")
-
-# beta = log 2, ~85% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2.censor_60.frailty_log.normal.frailty_none.csv")
+            "10N_beta_log2.censor_130.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log2.censor_130.frailty_log.normal.frailty_gamma.csv")
+# 
+# # beta = log 2, ~85% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2.censor_60.frailty_log.normal.frailty_none.csv")
 survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log2.censor_60.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log2.censor_60.frailty_log.normal.frailty_gamma.csv")
-
-# beta = log 3, ~30% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log3.censor_130.frailty_log.normal.frailty_none.csv")
+            "10N_beta_log2.censor_60.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(2)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log2.censor_60.frailty_log.normal.frailty_gamma.csv")
+# 
+# # beta = log 3, ~30% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log3.censor_130.frailty_log.normal.frailty_none.csv")
 survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log3.censor_130.frailty_log.normal.frailty_gamma.csv")
-
-# beta = log 3, ~80% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log3.censor_60.frailty_log.normal.frailty_none.csv")
+            "10N_beta_log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log3.censor_130.frailty_log.normal.frailty_gamma.csv")
+# 
+# # beta = log 3, ~80% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log3.censor_60.frailty_log.normal.frailty_none.csv")
 survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "beta_log3.censor_60.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "beta_log3.censor_60.frailty_log.normal.frailty_gamma.csv")
-
-# beta = log 2, log 3, ~30% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2log3.censor_130.frailty_log.normal.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
-            "beta_log2log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
-            "beta_log2log3.censor_130.frailty_log.normal.frailty_gamma.csv")
-
-# beta = log 2, log 3, ~80% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1),
-            "beta_log2log3.censor_60.frailty_log.normal.frailty_none.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
-            "beta_log2log3.censor_60.frailty_log.normal.frailty_log.normal.csv")
-survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
-            "beta_log2log3.censor_60.frailty_log.normal.frailty_gamma.csv")
-
-#### Uniform covariates
-
-# beta = log 2, ~35% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "uniform.beta_log2.censor_130.frailty_gamma.frailty_gamma.csv")
-
-# beta = log 2, ~85% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "uniform.beta_log2.censor_60.frailty_gamma.frailty_gamma.csv")
-
-# beta = log 3, ~30% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "uniform.beta_log3.censor_130.frailty_gamma.frailty_gamma.csv")
-
-# beta = log 3, ~80% censoring, gamma frailty
-survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
-            "uniform.beta_log3.censor_60.frailty_gamma.frailty_gamma.csv")
-
-# beta = log 2, ~35% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "uniform.beta_log2.censor_130.frailty_log.normal.frailty_log.normal.csv")
-
+            "10N_beta_log3.censor_60.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "beta_log3.censor_60.frailty_log.normal.frailty_gamma.csv")
+# 
+# # beta = log 2, log 3, ~30% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2log3.censor_130.frailty_log.normal.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
+#             "beta_log2log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
+#             "beta_log2log3.censor_130.frailty_log.normal.frailty_gamma.csv")
+# 
+# # beta = log 2, log 3, ~80% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1),
+#             "beta_log2log3.censor_60.frailty_log.normal.frailty_none.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gaussian(family)),
+#             "beta_log2log3.censor_60.frailty_log.normal.frailty_log.normal.csv")
+# survivalsim(reps, alist(beta=c(log(2), log(3)), censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + Z2 + frailty.gamma(family)),
+#             "beta_log2log3.censor_60.frailty_log.normal.frailty_gamma.csv")
+# 
+# #### Uniform covariates
+# 
+# # beta = log 2, ~35% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "uniform.beta_log2.censor_130.frailty_gamma.frailty_gamma.csv")
+# 
+# # beta = log 2, ~85% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "uniform.beta_log2.censor_60.frailty_gamma.frailty_gamma.csv")
+# 
+# # beta = log 3, ~30% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=130, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "uniform.beta_log3.censor_130.frailty_gamma.frailty_gamma.csv")
+# 
+# # beta = log 3, ~80% censoring, gamma frailty
+# survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=60, frailty="gamma", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gamma(family)),
+#             "uniform.beta_log3.censor_60.frailty_gamma.frailty_gamma.csv")
+# 
+# # beta = log 2, ~35% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "uniform.beta_log2.censor_130.frailty_log.normal.frailty_log.normal.csv")
+# 
 # beta = log 2, ~85% censoring, log.normal frailty
 survivalsim(reps, alist(beta=c(log(2)), covariates="uniform", censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "uniform.beta_log2.censor_60.frailty_log.normal.frailty_log.normal.csv")
-
-# beta = log 3, ~30% censoring, log.normal frailty
-survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
-            alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "uniform.beta_log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
-
+            "10N_uniform.beta_log2.censor_60.frailty_log.normal.frailty_log.normal.csv")
+# 
+# # beta = log 3, ~30% censoring, log.normal frailty
+# survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=130, frailty="log.normal", N=N, K=K, theta=theta), 
+#             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
+#             "uniform.beta_log3.censor_130.frailty_log.normal.frailty_log.normal.csv")
+# 
 # beta = log 3, ~80% censoring, log.normal frailty
 survivalsim(reps, alist(beta=c(log(3)), covariates="uniform", censor.mu=60, frailty="log.normal", N=N, K=K, theta=theta), 
             alist(Surv(time, status) ~ Z1 + frailty.gaussian(family)),
-            "uniform.beta_log3.censor_60.frailty_log.normal.frailty_log.normal.csv")
+            "10N_uniform.beta_log3.censor_60.frailty_log.normal.frailty_log.normal.csv")

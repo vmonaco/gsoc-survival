@@ -535,7 +535,8 @@ I have reached out to Dr.
  Gorfine and Dr.
  Hsu on 3/12 (via email) and received feedback for the first draft of this
  proposal on 3/18.
- This draft includes revisions suggested by Dr.
+ We went through a second round of editing shortly after that.
+ This draft includes the revisions suggested by Dr.
  Gorfine.
 \end_layout
 
@@ -554,7 +555,7 @@ Survival analysis is the study of time intervals.
  to other temporal analyses.
  Often, some of the data is censored, and we only know the time interval
  during which an event did not occur.
- This situation is common in clinical data, when a subject becomes unavailable
+ This situation is common in clinical data when a subject becomes unavailable
  for observation.
  Since the time of the event is not known, the observation is said to be
  
@@ -576,7 +577,7 @@ key "clark2003survival"
 In multivariate survival analysis, we may have to decide whether one or
  more covariates have an effect on the expected survival time.
  The covariates can be continuous or discrete.
- For example, in clinical data, it is common to consider age, gender, and
+ For example, in clinical data it is common to consider age, gender, and
  smoking habits as potential indicators for disease risk or life expectancy.
  The decision whether to include any of these covariates in a model is usually
  based on the results of statistical tests.
@@ -747,7 +748,7 @@ Survey of survival analysis software
 \begin_layout Standard
 There are currently several R packages available for the analysis and generation
  of survival data with a shared frailty model.
- Most of these packages are well documented, although it is not always clear
+ Many of these packages are well documented, although it is not always clear
  which one should be used 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1112,7 +1113,7 @@ key "gorfine2006prospective"
 
 \end_inset
 
-, does not make this assumption; The baseline hazard function is unspecified
+, does not make this assumption; the baseline hazard function is unspecified
  and estimated non-parametrically.
 \end_layout
 
@@ -1296,8 +1297,8 @@ key "gorfine2006prospective"
 \end_inset
 
 .
- Each simulation contains 300 families of size 2 and is repeated 500 times
- to obtain the empirical mean and standard deviation (SD).
+ Each simulation contains 300 families (clusters) of size 2 and is repeated
+ 500 times to obtain the empirical mean and standard deviation (SD).
  Source code for the simulation can be found in Appendix 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1352,9 +1353,9 @@ while for the log-normal,
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
-f(\omega;\theta)=\frac{1}{\tau\sqrt{\theta2\pi}}\exp\left(\frac{-(\ln\tau)^{2}}{2\theta}\right)\label{eq:log-normal}
-\end{equation}
+\[
+f(\omega;\theta)=\frac{1}{\tau\sqrt{\theta2\pi}}\exp\left(\frac{-(\ln\tau)^{2}}{2\theta}\right)
+\]
 
 \end_inset
 
@@ -1382,7 +1383,7 @@ ion.
  For detailed analysis of the simulation, see Appendix 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Simulation-source-code"
+reference "sec:Test:-simulation-results"
 
 \end_inset
 
@@ -1393,7 +1394,7 @@ reference "sec:Simulation-source-code"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1411,7 +1412,7 @@ status collapsed
 
 \begin_layout Plain Layout
 Gamma vs.
- log-normal for 
+ log-normal with 
 \begin_inset Formula $\theta=2$
 \end_inset
 
@@ -1710,8 +1711,8 @@ R provides comprehensive profiling tools, such as Rprof(), to help identify
 \end_layout
 
 \begin_layout Standard
-The most difficult part of optimization comes with deciding the tradeoff
- between programming effort and program speed.
+One of the most difficult parts of optimization comes with deciding the
+ tradeoff between programming effort and program speed.
  To be adopted by practitioners, the parameter estimation should have a
  runtime proportional to current implementations.
  The computationally complexity of the algorithm in 
@@ -2024,6 +2025,13 @@ options "plain"
 \begin_layout Section
 \start_of_appendix
 Test: simulation results
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Test:-simulation-results"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -6375,10 +6383,26 @@ Log-normal frailty with a single covariate: With
 \end_inset
 
 , the log-normal has a heavier tail than the gamma, and thus more clustering.
- As a result, with high censorship, the coefficients and frailty variance
- tend to by slightly underestimated.
+ As a result, with high censorship, the coefficients are slightly underestimated
+ and the frailty variance estimation is biased.
+ The bias is reduced by increasing the sample size.
+ With 3000 families and 20 members in each family, the mean estimation of
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is 
+\begin_inset Formula $\sim1.65$
+\end_inset
+
+ with 
+\begin_inset Formula $N(60,15^{2})$
+\end_inset
+
+ censoring.
  Similar to the gamma frailty, the error for uniformly-distributed individual
  covariates is higher than standard normal individual covariates.
+ 
 \end_layout
 
 \end_inset
@@ -7388,7 +7412,7 @@ Emp.
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard

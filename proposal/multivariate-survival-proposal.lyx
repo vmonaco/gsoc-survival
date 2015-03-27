@@ -1354,7 +1354,7 @@ while for the log-normal,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-f(\omega;\theta)=\frac{1}{\tau\sqrt{\theta2\pi}}\exp\left(\frac{-(\ln\tau)^{2}}{2\theta}\right)
+f(\omega;\theta)=\frac{1}{\omega\sqrt{\theta2\pi}}\exp\left(\frac{-(\ln\omega)^{2}}{2\theta}\right)
 \]
 
 \end_inset

@@ -1299,7 +1299,7 @@ key "gorfine2006prospective"
 .
  Each simulation contains 300 families (clusters) of size 2 and is repeated
  500 times to obtain the empirical mean and standard deviation (SD).
- Source code for the simulation can be found in Appendix 
+ Source code for the data generation function can be found in Appendix 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Simulation-source-code"
